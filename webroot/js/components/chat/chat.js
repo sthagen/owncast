@@ -15,7 +15,14 @@ import {
   MESSAGE_JUMPTOBOTTOM_BUFFER,
 } from '../../utils/constants.js';
 
-const renderableChatStyleMessages = ['CHAT', 'SYSTEM', 'USER_JOINED'];
+const renderableChatStyleMessages = [
+  'CHAT',
+  'SYSTEM',
+  'USER_JOINED',
+  SOCKET_MESSAGE_TYPES.FEDIVERSE_ENGAGEMENT_FOLLOW,
+  SOCKET_MESSAGE_TYPES.FEDIVERSE_ENGAGEMENT_LIKE,
+  SOCKET_MESSAGE_TYPES.FEDIVERSE_ENGAGEMENT_REPOST,
+];
 export default class Chat extends Component {
   constructor(props, context) {
     super(props, context);
