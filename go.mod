@@ -19,10 +19,10 @@ require (
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/schollz/sqlite3dump v1.3.1
 	github.com/sirupsen/logrus v1.8.1
-	github.com/teris-io/shortid v0.0.0-20201117134242-e59966efd125
+	github.com/teris-io/shortid v0.0.0-20220617161101-71ec9f2aa569
 	github.com/yuin/goldmark v1.4.12
 	golang.org/x/mod v0.5.1
-	golang.org/x/time v0.0.0-20220411224347-583f2d630306
+	golang.org/x/time v0.0.0-20220609170525-579cf78fd858
 	mvdan.cc/xurls v1.1.0
 )
 
@@ -35,7 +35,7 @@ require (
 	github.com/tklauser/numcpus v0.4.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
-	golang.org/x/net v0.0.0-20220607020251-c690dde0001d
+	golang.org/x/net v0.0.0-20220708220712-1185a9018129
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 )
 
@@ -57,7 +57,7 @@ require (
 
 require (
 	github.com/nakabonne/tstorage v0.3.5
-	github.com/shirou/gopsutil/v3 v3.22.3
+	github.com/shirou/gopsutil/v3 v3.22.6
 )
 
 require github.com/SherClockHolmes/webpush-go v1.2.0
