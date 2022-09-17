@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/amalfra/etag v1.0.0
-	github.com/aws/aws-sdk-go v1.44.91
+	github.com/aws/aws-sdk-go v1.44.99
 	github.com/go-fed/activity v1.0.1-0.20210803212804-d866ba75dd0f
 	github.com/go-fed/httpsig v1.1.0
 	github.com/go-ole/go-ole v1.2.6 // indirect
@@ -35,7 +35,7 @@ require (
 	github.com/tklauser/numcpus v0.4.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
-	golang.org/x/net v0.0.0-20220826154423-83b083e8dc8b
+	golang.org/x/net v0.0.0-20220909164309-bea034e7d591
 	golang.org/x/sys v0.0.0-20220804214406-8e32c043e418 // indirect
 )
 
