@@ -4,14 +4,14 @@ go 1.17
 
 require (
 	github.com/amalfra/etag v1.0.0
-	github.com/aws/aws-sdk-go v1.44.118
+	github.com/aws/aws-sdk-go v1.44.125
 	github.com/go-fed/activity v1.0.1-0.20210803212804-d866ba75dd0f
 	github.com/go-fed/httpsig v1.1.0
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/gorilla/websocket v1.5.0
 	github.com/grafov/m3u8 v0.11.1
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
-	github.com/mattn/go-sqlite3 v1.14.15
+	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/microcosm-cc/bluemonday v1.0.21
 	github.com/mssola/user_agent v0.5.3
 	github.com/nareix/joy5 v0.0.0-20210317075623-2c912ca30590
@@ -21,7 +21,7 @@ require (
 	github.com/sirupsen/logrus v1.9.0
 	github.com/teris-io/shortid v0.0.0-20220617161101-71ec9f2aa569
 	github.com/yuin/goldmark v1.5.2
-	golang.org/x/mod v0.5.1
+	golang.org/x/mod v0.6.0
 	golang.org/x/time v0.1.0
 	mvdan.cc/xurls v1.1.0
 )
@@ -34,9 +34,9 @@ require (
 	github.com/tklauser/go-sysconf v0.3.10 // indirect
 	github.com/tklauser/numcpus v0.4.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
-	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
-	golang.org/x/net v0.0.0-20221019024206-cb67ada4b0ad
-	golang.org/x/sys v0.0.0-20221010170243-090e33056c14 // indirect
+	golang.org/x/crypto v0.1.0 // indirect
+	golang.org/x/net v0.1.0
+	golang.org/x/sys v0.1.0 // indirect
 )
 
 require github.com/prometheus/client_golang v1.13.0
@@ -51,7 +51,7 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/text v0.4.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 )
 
