@@ -10,7 +10,7 @@
   <p align="center">
     <strong>Take control over your content and stream it yourself.</strong>
     <br />
-    <a href="http://owncast.online"><strong>Explore the docs »</strong></a>
+    <a href="https://owncast.online"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://watch.owncast.online/">View Demo</a>
     ·
@@ -59,6 +59,7 @@ Owncast is an open source, self-hosted, decentralized, single user live video st
     </a>
 </div>
 
+[![contribute.design](https://contribute.design/api/shield/owncast/owncast)](https://contribute.design/owncast/owncast)
 
 ---
 
