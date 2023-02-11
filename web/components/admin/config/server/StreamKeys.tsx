@@ -35,6 +35,24 @@ const saveKeys = async (keys, setError) => {
   }
 };
 
+const generateRndKey = () => {
+  let defaultKey = '';
+  let isValidStreamKey = false;
+  const streamKeyRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{8,192}$/;
+  const s = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+
+  while (!isValidStreamKey) {
+    const temp = Array.apply(20, Array(30))
+      .map(() => s.charAt(Math.floor(Math.random() * s.length)))
+      .join('');
+    if (streamKeyRegex.test(temp)) {
+      isValidStreamKey = true;
+      defaultKey = temp;
+    }
+  }
+  return defaultKey;
+};
+
 const AddKeyForm = ({ setShowAddKeyForm, setFieldInConfigState, streamKeys, setError }) => {
   const handleAddKey = (newkey: any) => {
     const updatedKeys = [...streamKeys, newkey];
@@ -49,10 +67,13 @@ const AddKeyForm = ({ setShowAddKeyForm, setFieldInConfigState, streamKeys, setE
     setShowAddKeyForm(false);
   };
 
+  // Default auto-generated key
+  const defaultKey = generateRndKey();
+
   return (
     <Form layout="inline" autoComplete="off" onFinish={handleAddKey}>
       <Item label="Key" name="key" tooltip="The key you provide your broadcasting software">
-        <Input placeholder="def456" />
+        <Input placeholder="def456" defaultValue={defaultKey} />
       </Item>
       <Item label="Comment" name="comment" tooltip="For remembering why you added this key">
         <Input placeholder="My OBS Key" />
