@@ -12,7 +12,6 @@ import { ExternalAction } from '../../../interfaces/external-action';
 
 export type MobileContentProps = {
   name: string;
-  streamTitle: string;
   summary: string;
   tags: string[];
   socialHandles: SocialLink[];
@@ -56,7 +55,6 @@ const ChatContainer = dynamic(
 
 export const MobileContent: FC<MobileContentProps> = ({
   name,
-  streamTitle,
   summary,
   tags,
   socialHandles,
@@ -87,26 +85,26 @@ export const MobileContent: FC<MobileContentProps> = ({
 
   const aboutTabContent = (
     <>
-      <ContentHeader
-        name={name}
-        title={streamTitle}
-        summary={summary}
-        tags={tags}
-        links={socialHandles}
-        logo="/logo"
-      />
-      <CustomPageContent content={extraPageContent} />
+      <ContentHeader name={name} summary={summary} tags={tags} links={socialHandles} logo="/logo" />
+      <div className={styles.bottomPageContentContainer}>
+        <CustomPageContent content={extraPageContent} />
+      </div>
     </>
   );
   const followersTabContent = (
-    <FollowerCollection name={name} onFollowButtonClick={() => setShowFollowModal(true)} />
+    <div className={styles.bottomPageContentContainer}>
+      <FollowerCollection name={name} onFollowButtonClick={() => setShowFollowModal(true)} />
+    </div>
   );
 
-  const items = [
-    showChat && { label: 'Chat', key: '0', children: chatContent },
-    { label: 'About', key: '2', children: aboutTabContent },
-    { label: 'Followers', key: '3', children: followersTabContent },
-  ];
+  const items = [];
+  if (showChat) {
+    items.push({ label: 'Chat', key: '0', children: chatContent });
+  }
+  items.push({ label: 'About', key: '2', children: aboutTabContent });
+  if (supportFediverseFeatures) {
+    items.push({ label: 'Followers', key: '3', children: followersTabContent });
+  }
 
   const replacementTabBar = (props, DefaultTabBar) => (
     <div className={styles.replacementBar}>
@@ -125,12 +123,16 @@ export const MobileContent: FC<MobileContentProps> = ({
 
   return (
     <div className={styles.lowerSectionMobile}>
-      <Tabs
-        className={styles.tabs}
-        defaultActiveKey="0"
-        items={items}
-        renderTabBar={replacementTabBar}
-      />
+      {items.length > 1 ? (
+        <Tabs
+          className={styles.tabs}
+          defaultActiveKey="0"
+          items={items}
+          renderTabBar={replacementTabBar}
+        />
+      ) : (
+        aboutTabContent
+      )}
     </div>
   );
 };

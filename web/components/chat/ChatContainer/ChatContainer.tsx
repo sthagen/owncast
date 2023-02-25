@@ -1,6 +1,5 @@
 import { Virtuoso } from 'react-virtuoso';
 import { useState, useMemo, useRef, CSSProperties, FC, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import {
   ConnectedClientInfoEvent,
   FediverseEvent,
@@ -12,18 +11,13 @@ import { ChatMessage } from '../../../interfaces/chat-message.model';
 import { ChatUserMessage } from '../ChatUserMessage/ChatUserMessage';
 import { ChatTextField } from '../ChatTextField/ChatTextField';
 import { ChatModeratorNotification } from '../ChatModeratorNotification/ChatModeratorNotification';
-// import ChatActionMessage from '../ChatAction/ChatActionMessage';
 import { ChatSystemMessage } from '../ChatSystemMessage/ChatSystemMessage';
 import { ChatJoinMessage } from '../ChatJoinMessage/ChatJoinMessage';
 import { ScrollToBotBtn } from './ScrollToBotBtn';
 import { ChatActionMessage } from '../ChatActionMessage/ChatActionMessage';
 import { ChatSocialMessage } from '../ChatSocialMessage/ChatSocialMessage';
+import { ChatNameChangeMessage } from '../ChatNameChangeMessage/ChatNameChangeMessage';
 
-// Lazy loaded components
-
-const EditFilled = dynamic(() => import('@ant-design/icons/EditFilled'), {
-  ssr: false,
-});
 export type ChatContainerProps = {
   messages: ChatMessage[];
   usernameToHighlight: string;
@@ -33,7 +27,11 @@ export type ChatContainerProps = {
   height?: string;
 };
 
-function shouldCollapseMessages(messages: ChatMessage[], index: number): boolean {
+function shouldCollapseMessages(
+  messages: ChatMessage[],
+  index: number,
+  collapsedMessageIds: Set<string>,
+): boolean {
   if (messages.length < 2) {
     return false;
   }
@@ -55,14 +53,24 @@ function shouldCollapseMessages(messages: ChatMessage[], index: number): boolean
     return false;
   }
 
-  const maxTimestampDelta = 1000 * 60 * 2; // 2 minutes
+  const maxTimestampDelta = 1000 * 60; // 1 minute
   const lastTimestamp = new Date(lastMessage?.timestamp).getTime();
   const thisTimestamp = new Date(message.timestamp).getTime();
   if (thisTimestamp - lastTimestamp > maxTimestampDelta) {
     return false;
   }
 
-  return id === lastMessage?.user.id;
+  if (id !== lastMessage?.user.id) {
+    return false;
+  }
+
+  // Limit the number of messages that can be collapsed in a row.
+  const maxCollapsedMessageCount = 5;
+  if (collapsedMessageIds.size >= maxCollapsedMessageCount) {
+    return false;
+  }
+
+  return true;
 }
 
 function checkIsModerator(message: ChatMessage | ConnectedClientInfoEvent) {
@@ -85,27 +93,30 @@ export const ChatContainer: FC<ChatContainerProps> = ({
   showInput,
   height,
 }) => {
-  const [atBottom, setAtBottom] = useState(false);
+  const [showScrollToBottomButton, setShowScrollToBottomButton] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
+
   const chatContainerRef = useRef(null);
+  const showScrollToBottomButtonDelay = useRef(null);
+  const scrollToBottomDelay = useRef(null);
 
-  const getNameChangeViewForMessage = (message: NameChangeEvent) => {
-    const { oldName, user } = message;
-    const { displayName, displayColor } = user;
-    const color = `var(--theme-color-users-${displayColor})`;
+  const collapsedMessageIds = new Set<string>();
 
-    return (
-      <div className={styles.nameChangeView}>
-        <div style={{ marginRight: 5, height: 'max-content', margin: 'auto 5px auto 0' }}>
-          <EditFilled />
-        </div>
-        <div className={styles.nameChangeText}>
-          <span style={{ color }}>{oldName}</span>
-          <span className={styles.plain}> is now known as </span>
-          <span style={{ color }}>{displayName}</span>
-        </div>
-      </div>
-    );
+  const setShowScrolltoBottomButtonWithDelay = (show: boolean) => {
+    showScrollToBottomButtonDelay.current = setTimeout(() => {
+      setShowScrollToBottomButton(show);
+    }, 1500);
   };
+
+  useEffect(
+    () =>
+      // Clear the timer when the component unmounts
+      () => {
+        clearTimeout(showScrollToBottomButtonDelay.current);
+        clearTimeout(scrollToBottomDelay.current);
+      },
+    [],
+  );
 
   const getFediverseMessage = (message: FediverseEvent) => <ChatSocialMessage message={message} />;
 
@@ -127,6 +138,7 @@ export const ChatContainer: FC<ChatContainerProps> = ({
     const { body } = message;
     return <ChatActionMessage body={body} />;
   };
+
   const getConnectedInfoMessage = (message: ConnectedClientInfoEvent) => {
     const modStatusUpdate = checkIsModerator(message);
     if (!modStatusUpdate) {
@@ -140,27 +152,37 @@ export const ChatContainer: FC<ChatContainerProps> = ({
     return <ChatModeratorNotification />;
   };
 
+  const getUserChatMessageView = (index: number, message: ChatMessage) => {
+    const collapsed = shouldCollapseMessages(messages, index, collapsedMessageIds);
+    if (!collapsed) {
+      collapsedMessageIds.clear();
+    } else {
+      collapsedMessageIds.add(message.id);
+    }
+
+    return (
+      <ChatUserMessage
+        message={message}
+        showModeratorMenu={isModerator} // Moderators have access to an additional menu
+        highlightString={usernameToHighlight} // What to highlight in the message
+        sentBySelf={message.user?.id === chatUserId} // The local user sent this message
+        sameUserAsLast={collapsed}
+        isAuthorModerator={message.user?.scopes?.includes('MODERATOR')}
+        isAuthorBot={message.user?.scopes?.includes('BOT')}
+        isAuthorAuthenticated={message.user?.authenticated}
+        key={message.id}
+      />
+    );
+  };
   const getViewForMessage = (
     index: number,
     message: ChatMessage | NameChangeEvent | ConnectedClientInfoEvent | FediverseEvent,
   ) => {
     switch (message.type) {
       case MessageType.CHAT:
-        return (
-          <ChatUserMessage
-            message={message as ChatMessage}
-            showModeratorMenu={isModerator} // Moderators have access to an additional menu
-            highlightString={usernameToHighlight} // What to highlight in the message
-            sentBySelf={(message as ChatMessage).user?.id === chatUserId} // The local user sent this message
-            sameUserAsLast={shouldCollapseMessages(messages, index)}
-            isAuthorModerator={(message as ChatMessage).user.scopes?.includes('MODERATOR')}
-            isAuthorBot={(message as ChatMessage).user.scopes?.includes('BOT')}
-            isAuthorAuthenticated={(message as ChatMessage).user?.authenticated}
-            key={message.id}
-          />
-        );
+        return getUserChatMessageView(index, message as ChatMessage);
       case MessageType.NAME_CHANGE:
-        return getNameChangeViewForMessage(message as NameChangeEvent);
+        return <ChatNameChangeMessage message={message as NameChangeEvent} />;
       case MessageType.CONNECTED_USER_INFO:
         return getConnectedInfoMessage(message as ConnectedClientInfoEvent);
       case MessageType.USER_JOINED:
@@ -187,16 +209,17 @@ export const ChatContainer: FC<ChatContainerProps> = ({
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const scrollChatToBottom = (ref, behavior = 'smooth') => {
-    setTimeout(() => {
+    clearTimeout(scrollToBottomDelay.current);
+    clearTimeout(showScrollToBottomButtonDelay.current);
+    scrollToBottomDelay.current = setTimeout(() => {
       ref.current?.scrollToIndex({
         index: messages.length - 1,
         behavior,
       });
+      setIsAtBottom(true);
+      setShowScrollToBottomButton(false);
     }, 100);
-
-    setAtBottom(true);
   };
 
   // This is a hack to force a scroll to the very bottom of the chat messages
@@ -205,6 +228,7 @@ export const ChatContainer: FC<ChatContainerProps> = ({
   useEffect(() => {
     setTimeout(() => {
       scrollChatToBottom(chatContainerRef, 'auto');
+      setShowScrolltoBottomButtonWithDelay(false);
     }, 500);
   }, []);
 
@@ -218,22 +242,41 @@ export const ChatContainer: FC<ChatContainerProps> = ({
           ref={chatContainerRef}
           data={messages}
           itemContent={(index, message) => getViewForMessage(index, message)}
-          followOutput={(isAtBottom: boolean) => {
+          initialTopMostItemIndex={messages.length - 1}
+          followOutput={() => {
+            clearTimeout(showScrollToBottomButtonDelay.current);
+
             if (isAtBottom) {
-              scrollChatToBottom(chatContainerRef, 'smooth');
+              setShowScrollToBottomButton(false);
+              scrollChatToBottom(chatContainerRef, 'auto');
+              return 'smooth';
             }
+            setShowScrolltoBottomButtonWithDelay(true);
+
             return false;
           }}
           alignToBottom
           atBottomThreshold={70}
           atBottomStateChange={bottom => {
-            setAtBottom(bottom);
+            setIsAtBottom(bottom);
+
+            if (bottom) {
+              setShowScrollToBottomButton(false);
+            } else {
+              setShowScrolltoBottomButtonWithDelay(true);
+            }
           }}
         />
-        {!atBottom && <ScrollToBotBtn chatContainerRef={chatContainerRef} messages={messages} />}
+        {showScrollToBottomButton && (
+          <ScrollToBotBtn
+            onClick={() => {
+              scrollChatToBottom(chatContainerRef, 'auto');
+            }}
+          />
+        )}
       </>
     ),
-    [messages, usernameToHighlight, chatUserId, isModerator, atBottom],
+    [messages, usernameToHighlight, chatUserId, isModerator, showScrollToBottomButton, isAtBottom],
   );
 
   return (
