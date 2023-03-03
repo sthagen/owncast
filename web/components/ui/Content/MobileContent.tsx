@@ -25,6 +25,7 @@ export type MobileContentProps = {
   messages: ChatMessage[];
   currentUser: CurrentUser;
   showChat: boolean;
+  chatEnabled: boolean;
   actions: ExternalAction[];
   externalActionSelected: (action: ExternalAction) => void;
   supportsBrowserNotifications: boolean;
@@ -62,6 +63,7 @@ export const MobileContent: FC<MobileContentProps> = ({
   messages,
   currentUser,
   showChat,
+  chatEnabled,
   actions,
   setExternalActionToDisplay,
   setShowNotifyPopup,
@@ -80,15 +82,18 @@ export const MobileContent: FC<MobileContentProps> = ({
       usernameToHighlight={displayName}
       chatUserId={id}
       isModerator={false}
+      chatAvailable={chatEnabled}
     />
   );
 
   const aboutTabContent = (
     <>
       <ContentHeader name={name} summary={summary} tags={tags} links={socialHandles} logo="/logo" />
-      <div className={styles.bottomPageContentContainer}>
-        <CustomPageContent content={extraPageContent} />
-      </div>
+      {!!extraPageContent && (
+        <div className={styles.bottomPageContentContainer}>
+          <CustomPageContent content={extraPageContent} />
+        </div>
+      )}
     </>
   );
   const followersTabContent = (
