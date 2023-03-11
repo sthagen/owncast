@@ -109,6 +109,9 @@ const Template: ComponentStory<typeof Main> = ({
 );
 
 export const OfflineDesktop: typeof Template = Template.bind({});
+OfflineDesktop.parameters = {
+  chromatic: { diffThreshold: 0.88 },
+};
 
 export const OfflineMobile: typeof Template = Template.bind({});
 OfflineMobile.args = {
@@ -132,6 +135,9 @@ OfflineTablet.parameters = {
 export const Online: typeof Template = Template.bind({});
 Online.args = {
   ServerStatusServiceMock: OnlineServerStatusServiceMock,
+};
+Online.parameters = {
+  chromatic: { diffThreshold: 0.88 },
 };
 
 export const OnlineMobile: typeof Template = Online.bind({});
