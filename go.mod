@@ -3,12 +3,12 @@ module github.com/owncast/owncast
 go 1.18
 
 require (
-	github.com/aws/aws-sdk-go v1.44.232
+	github.com/aws/aws-sdk-go v1.44.244
 	github.com/go-fed/activity v1.0.1-0.20210803212804-d866ba75dd0f
 	github.com/go-fed/httpsig v1.1.0
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/gorilla/websocket v1.5.0
-	github.com/grafov/m3u8 v0.11.2
+	github.com/grafov/m3u8 v0.12.0
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/microcosm-cc/bluemonday v1.0.23
@@ -55,7 +55,7 @@ require (
 
 require (
 	github.com/nakabonne/tstorage v0.3.6
-	github.com/shirou/gopsutil/v3 v3.23.2
+	github.com/shirou/gopsutil/v3 v3.23.3
 )
 
 require github.com/SherClockHolmes/webpush-go v1.2.0
@@ -68,6 +68,7 @@ require (
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/oschwald/maxminddb-golang v1.10.0 // indirect
+	github.com/shoenig/go-m1cpu v0.1.4 // indirect
 )
 
 require (
@@ -75,7 +76,6 @@ require (
 	github.com/andybalholm/cascadia v1.3.1
 	gopkg.in/evanphx/json-patch.v5 v5.6.0
 	mvdan.cc/xurls v1.1.0
-	mvdan.cc/xurls/v2 v2.4.0
 )
 
 replace github.com/go-fed/activity => github.com/owncast/activity v1.0.1-0.20211229051252-7821289d4026
