@@ -6,45 +6,43 @@
   border-style: solid;
   padding: 10px 10px;
   border-radius: 15px;
-  height: 75px;
-  font-size: 0.8rem;
-  margin: 5px;
-  color: var(--theme-color-components-text-on-light);
-
-  .name {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--theme-color-components-text-on-light);
-    display: inline-block;
-
-    text-overflow: ellipsis;
-    overflow: hidden;
-    width: calc(85%);
-    white-space: nowrap;
-  }
-
-  .account {
-    color: var(--theme-color-components-text-on-light);
-    word-break: break-all;
-    line-height: 1rem;
-  }
-
-  @include screen(mobile) {
-    margin: auto;
-  }
+  background-color: var(--theme-color-background-main);
+  margin: 0.5em;
+  font-size: 1rem;
+  line-height: 1.5rem;
 
   &:hover {
-    border-color: var(--theme-color-action);
+    border-color: var(--theme-text-link);
   }
 
   .avatar {
+    height: 60px;
+    width: 60px;
     border-color: rgba(0, 0, 0, 0.3);
     border-width: 1px;
     border-style: solid;
-    background-color: var(--theme-color-background-main);
+    font-size: 1.8rem;
+  }
 
-    span {
-      font-size: 1.6rem;
-    }
+  .avatarColumn {
+    max-width: 75px;
+    min-width: 75px;
+  }
+
+  .account {
+    display: block;
+    color: var(--theme-color-components-text-on-light);
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+
+  .username {
+    display: block;
+    font-family: var(--theme-text-display-font-family);
+    font-weight: 600;
+    color: var(--theme-color-components-text-on-light);
+    font-size: 1rem;
+    line-height: 1.1;
+    padding-bottom: 5px;
   }
 }
