@@ -3,7 +3,7 @@ module github.com/owncast/owncast
 go 1.18
 
 require (
-	github.com/aws/aws-sdk-go v1.44.248
+	github.com/aws/aws-sdk-go v1.44.258
 	github.com/go-fed/activity v1.0.1-0.20210803212804-d866ba75dd0f
 	github.com/go-fed/httpsig v1.1.0
 	github.com/go-ole/go-ole v1.2.6 // indirect
@@ -36,7 +36,7 @@ require (
 	golang.org/x/sys v0.7.0 // indirect
 )
 
-require github.com/prometheus/client_golang v1.15.0
+require github.com/prometheus/client_golang v1.15.1
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
