@@ -3,7 +3,7 @@ module github.com/owncast/owncast
 go 1.20
 
 require (
-	github.com/aws/aws-sdk-go v1.44.273
+	github.com/aws/aws-sdk-go v1.44.286
 	github.com/go-fed/activity v1.0.1-0.20210803212804-d866ba75dd0f
 	github.com/go-fed/httpsig v1.1.0
 	github.com/go-ole/go-ole v1.2.6 // indirect
@@ -13,13 +13,13 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/microcosm-cc/bluemonday v1.0.24
 	github.com/nareix/joy5 v0.0.0-20210317075623-2c912ca30590
-	github.com/oschwald/geoip2-golang v1.8.0
+	github.com/oschwald/geoip2-golang v1.9.0
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/schollz/sqlite3dump v1.3.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/teris-io/shortid v0.0.0-20220617161101-71ec9f2aa569
 	github.com/yuin/goldmark v1.5.4
-	golang.org/x/mod v0.10.0
+	golang.org/x/mod v0.11.0
 	golang.org/x/time v0.3.0
 )
 
@@ -30,13 +30,13 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
-	github.com/yusufpapurcu/wmi v1.2.2 // indirect
-	golang.org/x/crypto v0.1.0 // indirect
-	golang.org/x/net v0.10.0
-	golang.org/x/sys v0.8.0 // indirect
+	github.com/yusufpapurcu/wmi v1.2.3 // indirect
+	golang.org/x/crypto v0.10.0 // indirect
+	golang.org/x/net v0.11.0
+	golang.org/x/sys v0.9.0 // indirect
 )
 
-require github.com/prometheus/client_golang v1.15.1
+require github.com/prometheus/client_golang v1.16.0
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -48,14 +48,14 @@ require (
 	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.42.0 // indirect
-	github.com/prometheus/procfs v0.9.0 // indirect
-	golang.org/x/text v0.9.0 // indirect
+	github.com/prometheus/procfs v0.10.1 // indirect
+	golang.org/x/text v0.10.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 )
 
 require (
 	github.com/nakabonne/tstorage v0.3.6
-	github.com/shirou/gopsutil/v3 v3.23.3
+	github.com/shirou/gopsutil/v3 v3.23.5
 )
 
 require github.com/SherClockHolmes/webpush-go v1.2.0
@@ -67,8 +67,8 @@ require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
-	github.com/oschwald/maxminddb-golang v1.10.0 // indirect
-	github.com/shoenig/go-m1cpu v0.1.4 // indirect
+	github.com/oschwald/maxminddb-golang v1.11.0 // indirect
+	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 )
 
 require (
