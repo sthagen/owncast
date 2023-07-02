@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Skeleton, Col, Row, Button } from 'antd';
+import { Skeleton, Col, Row, Button, Spin } from 'antd';
 import MessageFilled from '@ant-design/icons/MessageFilled';
 import { FC, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
@@ -12,7 +12,8 @@ import {
   clientConfigStateAtom,
   chatMessagesAtom,
   currentUserAtom,
-  isChatVisibleSelector,
+  ChatState,
+  chatStateAtom,
   appStateAtom,
   isOnlineSelector,
   isMobileAtom,
@@ -92,7 +93,7 @@ const ExternalModal = ({ externalActionToDisplay, setExternalActionToDisplay }) 
 export const Content: FC = () => {
   const appState = useRecoilValue<AppStateOptions>(appStateAtom);
   const clientConfig = useRecoilValue<ClientConfig>(clientConfigStateAtom);
-  const isChatVisible = useRecoilValue<boolean>(isChatVisibleSelector);
+  const chatState = useRecoilValue<ChatState>(chatStateAtom);
   const currentUser = useRecoilValue(currentUserAtom);
   const serverStatus = useRecoilValue<ServerStatus>(serverStatusState);
   const [isMobile, setIsMobile] = useRecoilState<boolean | undefined>(isMobileAtom);
@@ -184,7 +185,7 @@ export const Content: FC = () => {
     );
   }, [browserNotificationsEnabled]);
 
-  const showChat = isChatAvailable && !chatDisabled && isChatVisible;
+  const showChat = isChatAvailable && !chatDisabled && chatState === ChatState.VISIBLE;
 
   // accounts for sidebar width when online in desktop
   const dynamicPadding = showChat && !isMobile ? '320px' : '0px';
@@ -193,7 +194,12 @@ export const Content: FC = () => {
     <>
       <>
         {appState.appLoading && (
-          <Skeleton loading active paragraph={{ rows: 7 }} className={styles.topSectionElement} />
+          <div
+            className={classnames([styles.topSectionElement, styles.centerSpinner])}
+            style={{ height: '30vh' }}
+          >
+            <Spin delay={2} size="large" tip="One moment..." />
+          </div>
         )}
         {showChat && !isMobile && <Sidebar />}
         <Row>
@@ -240,11 +246,11 @@ export const Content: FC = () => {
           <Col span={24} style={{ paddingRight: dynamicPadding }}>
             <ActionButtons
               supportFediverseFeatures={supportFediverseFeatures}
-              supportsBrowserNotifications
+              supportsBrowserNotifications={supportsBrowserNotifications}
               showNotifyReminder={showNotifyReminder}
               setShowNotifyModal={setShowNotifyModal}
               disableNotifyReminderPopup={disableNotifyReminderPopup}
-              externalActions={externalActions}
+              externalActions={externalActions || []}
               setExternalActionToDisplay={setExternalActionToDisplay}
               setShowFollowModal={setShowFollowModal}
               externalActionSelected={externalActionSelected}
@@ -261,6 +267,7 @@ export const Content: FC = () => {
           <BrowserNotifyModal />
         </Modal>
         <Row>
+          {!name && <Skeleton active loading style={{ marginLeft: '10vw', marginRight: '10vw' }} />}
           {isMobile ? (
             <Col span={24}>
               <MobileContent
@@ -309,7 +316,7 @@ export const Content: FC = () => {
           handleClose={() => setShowFollowModal(false)}
         />
       </Modal>
-      {isMobile && showChatModal && isChatVisible && (
+      {isMobile && showChatModal && chatState === ChatState.VISIBLE && (
         <ChatModal
           messages={messages}
           currentUser={currentUser}

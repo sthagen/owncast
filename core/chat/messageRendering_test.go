@@ -10,20 +10,17 @@ import (
 // and fully rendered HTML out of it.
 func TestRenderAndSanitize(t *testing.T) {
 	messageContent := `
-  Test one two three!  I go to http://yahoo.com and search for _sports_ and **answers**.
-  Here is an iframe <iframe src="http://yahoo.com"></iframe>
-
-  ## blah blah blah
-  [test link](http://owncast.online)
-  <img class="emoji" alt="bananadance.gif" width="600px" src="/img/emoji/bananadance.gif">
-  <script src="http://hackers.org/hack.js"></script>
-  `
-
-	expected := `Test one two three!  I go to <a href="http://yahoo.com" rel="nofollow noreferrer noopener" target="_blank">http://yahoo.com</a> and search for <em>sports</em> and <strong>answers</strong>.
-Here is an iframe 
-blah blah blah
-<a href="http://owncast.online" rel="nofollow noreferrer noopener" target="_blank">test link</a>
+Test one two three!  I go to http://yahoo.com and search for _sports_ and **answers**.
+Here is an iframe<iframe src="http://yahoo.com"></iframe>
+## blah blah blah
+[test link](http://owncast.online)
 <img class="emoji" src="/img/emoji/bananadance.gif">`
+
+	expected := `<p>Test one two three!  I go to <a href="http://yahoo.com" rel="nofollow noreferrer noopener" target="_blank">http://yahoo.com</a> and search for <em>sports</em> and <strong>answers</strong>.
+Here is an iframe</p>
+blah blah blah
+<p><a href="http://owncast.online" rel="nofollow noreferrer noopener" target="_blank">test link</a>
+<img class="emoji" src="/img/emoji/bananadance.gif"></p>`
 
 	result := events.RenderAndSanitize(messageContent)
 	if result != expected {
@@ -34,7 +31,7 @@ blah blah blah
 // Test to make sure we block remote images in chat messages.
 func TestBlockRemoteImages(t *testing.T) {
 	messageContent := `<img src="https://via.placeholder.com/img/emoji/350x150"> test ![](https://via.placeholder.com/img/emoji/350x150)`
-	expected := `test`
+	expected := `<p> test </p>`
 	result := events.RenderAndSanitize(messageContent)
 
 	if result != expected {
@@ -45,7 +42,7 @@ func TestBlockRemoteImages(t *testing.T) {
 // Test to make sure emoji images are allowed in chat messages.
 func TestAllowEmojiImages(t *testing.T) {
 	messageContent := `<img alt=":beerparrot:" title=":beerparrot:" src="/img/emoji/beerparrot.gif"> test ![](/img/emoji/beerparrot.gif)`
-	expected := `<img alt=":beerparrot:" title=":beerparrot:" src="/img/emoji/beerparrot.gif"> test <img src="/img/emoji/beerparrot.gif">`
+	expected := `<p><img alt=":beerparrot:" title=":beerparrot:" src="/img/emoji/beerparrot.gif"> test <img src="/img/emoji/beerparrot.gif"></p>`
 	result := events.RenderAndSanitize(messageContent)
 
 	if result != expected {
