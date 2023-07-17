@@ -1,5 +1,23 @@
 @import '../../../styles/mixins';
 
+.main {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  height: 100%;
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.mainColumn::-webkit-scrollbar, .mainColumn::-webkit-scrollbar-thumb {
+  display: none;
+}
+
 .lowerSection {
   padding: var(--content-padding);
 }
@@ -59,6 +77,7 @@
 
 .desktopActionButtons {
   display: block;
+  width: 100%;
 
   @include screen(tablet) {
     display: none;
