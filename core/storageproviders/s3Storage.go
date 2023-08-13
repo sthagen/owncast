@@ -37,6 +37,7 @@ type S3Storage struct {
 	s3AccessKey       string
 	s3Secret          string
 	s3ACL             string
+	s3PathPrefix      string
 	s3ForcePathStyle  bool
 
 	// If we try to upload a playlist but it is not yet on disk
@@ -73,6 +74,7 @@ func (s *S3Storage) Setup() error {
 	s.s3AccessKey = s3Config.AccessKey
 	s.s3Secret = s3Config.Secret
 	s.s3ACL = s3Config.ACL
+	s.s3PathPrefix = s3Config.PathPrefix
 	s.s3ForcePathStyle = s3Config.ForcePathStyle
 
 	s.sess = s.connectAWS()
@@ -107,6 +109,7 @@ func (s *S3Storage) SegmentWritten(localFilePath string) {
 	// so the segments and the HLS playlist referencing
 	// them are in sync.
 	playlistPath := filepath.Join(filepath.Dir(localFilePath), "stream.m3u8")
+
 	if _, err := s.Save(playlistPath, 0); err != nil {
 		s.queuedPlaylistUpdates[playlistPath] = playlistPath
 		if pErr, ok := err.(*os.PathError); ok {
@@ -133,7 +136,7 @@ func (s *S3Storage) VariantPlaylistWritten(localFilePath string) {
 // MasterPlaylistWritten is called when the master hls playlist is written.
 func (s *S3Storage) MasterPlaylistWritten(localFilePath string) {
 	// Rewrite the playlist to use absolute remote S3 URLs
-	if err := rewriteRemotePlaylist(localFilePath, s.host); err != nil {
+	if err := rewriteRemotePlaylist(localFilePath, s.host, s.s3PathPrefix); err != nil {
 		log.Warnln(err)
 	}
 }
@@ -150,6 +153,12 @@ func (s *S3Storage) Save(filePath string, retryCount int) (string, error) {
 	normalizedPath := strings.TrimPrefix(filePath, config.HLSStoragePath)
 	// Build the remote path by adding the "hls" path prefix.
 	remotePath := strings.Join([]string{"hls", normalizedPath}, "")
+
+	// If a custom path prefix is set prepend it.
+	if s.s3PathPrefix != "" {
+		prefix := strings.TrimPrefix(s.s3PathPrefix, "/")
+		remotePath = strings.Join([]string{prefix, remotePath}, "/")
+	}
 
 	maxAgeSeconds := utils.GetCacheDurationSecondsForPath(filePath)
 	cacheControlHeader := fmt.Sprintf("max-age=%d", maxAgeSeconds)
@@ -184,8 +193,14 @@ func (s *S3Storage) Save(filePath string, retryCount int) (string, error) {
 			return s.Save(filePath, retryCount+1)
 		}
 
+		// Upload failure. Remove the local file.
+		s.removeLocalFile(filePath)
+
 		return "", fmt.Errorf("Giving up uploading %s to object storage %s", filePath, s.s3Endpoint)
 	}
+
+	// Upload success. Remove the local file.
+	s.removeLocalFile(filePath)
 
 	return response.Location, nil
 }
@@ -250,6 +265,14 @@ func (s *S3Storage) getDeletableVideoSegmentsWithOffset(offset int) ([]s3object,
 	objectsToDelete = objectsToDelete[offset : len(objectsToDelete)-1]
 
 	return objectsToDelete, nil
+}
+
+func (s *S3Storage) removeLocalFile(filePath string) {
+	cleanFilepath := filepath.Clean(filePath)
+
+	if err := os.Remove(cleanFilepath); err != nil {
+		log.Errorln(err)
+	}
 }
 
 func (s *S3Storage) deleteObjects(objects []s3object) {
