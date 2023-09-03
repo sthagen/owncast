@@ -3,7 +3,7 @@ module github.com/owncast/owncast
 go 1.20
 
 require (
-	github.com/aws/aws-sdk-go v1.44.296
+	github.com/aws/aws-sdk-go v1.44.334
 	github.com/go-fed/activity v1.0.1-0.20210803212804-d866ba75dd0f
 	github.com/go-fed/httpsig v1.1.0
 	github.com/go-ole/go-ole v1.2.6 // indirect
@@ -18,7 +18,7 @@ require (
 	github.com/schollz/sqlite3dump v1.3.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/teris-io/shortid v0.0.0-20160104014424-6c56cef5189c
-	github.com/yuin/goldmark v1.5.5
+	github.com/yuin/goldmark v1.5.6
 	golang.org/x/mod v0.12.0
 	golang.org/x/time v0.3.0
 )
@@ -31,9 +31,9 @@ require (
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
-	golang.org/x/crypto v0.11.0 // indirect
-	golang.org/x/net v0.12.0
-	golang.org/x/sys v0.10.0 // indirect
+	golang.org/x/crypto v0.12.0 // indirect
+	golang.org/x/net v0.14.0
+	golang.org/x/sys v0.11.0 // indirect
 )
 
 require github.com/prometheus/client_golang v1.16.0
@@ -49,13 +49,13 @@ require (
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.42.0 // indirect
 	github.com/prometheus/procfs v0.10.1 // indirect
-	golang.org/x/text v0.11.0 // indirect
+	golang.org/x/text v0.12.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 )
 
 require (
 	github.com/nakabonne/tstorage v0.3.6
-	github.com/shirou/gopsutil/v3 v3.23.6
+	github.com/shirou/gopsutil/v3 v3.23.7
 )
 
 require github.com/SherClockHolmes/webpush-go v1.2.0
@@ -74,6 +74,7 @@ require (
 require (
 	github.com/CAFxX/httpcompression v0.0.8
 	github.com/andybalholm/cascadia v1.3.2
+	github.com/mssola/user_agent v0.6.0
 	github.com/yuin/goldmark-emoji v1.0.2
 	gopkg.in/evanphx/json-patch.v5 v5.6.0
 	mvdan.cc/xurls v1.1.0

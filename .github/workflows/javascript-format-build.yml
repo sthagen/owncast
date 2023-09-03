@@ -5,9 +5,12 @@ on:
   push:
     paths:
       - web/**
-  pull_request_target:
+      - '!**.md'
+
+  pull_request:
     paths:
       - web/**
+      - '!**.md'
 
 jobs:
   formatting:
@@ -22,6 +25,8 @@ jobs:
         uses: fkirc/skip-duplicate-actions@v5
         with:
           concurrent_skipping: 'same_content_newer'
+          cancel_others: 'true'
+          skip_after_successful_duplicate: 'true'
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -33,7 +38,7 @@ jobs:
 
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v37
+        uses: tj-actions/changed-files@v38
         with:
           files_ignore: |
             static/**
@@ -77,6 +82,7 @@ jobs:
           author_name: Owncast
           author_email: owncast@owncast.online
           message: 'Javascript formatting autofixes'
+          add: ${{ steps.changed-files.outputs.src_all_changed_files }}
           pull: '--rebase --autostash'
 
   unused-code:
@@ -91,6 +97,8 @@ jobs:
         uses: fkirc/skip-duplicate-actions@v5
         with:
           concurrent_skipping: 'same_content_newer'
+          cancel_others: 'true'
+          skip_after_successful_duplicate: 'true'
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -131,6 +139,8 @@ jobs:
         uses: fkirc/skip-duplicate-actions@v5
         with:
           concurrent_skipping: 'same_content_newer'
+          cancel_others: 'true'
+          skip_after_successful_duplicate: 'true'
 
       - name: Cache node modules
         uses: actions/cache@v3
@@ -158,6 +168,7 @@ jobs:
       - name: Rebase
         if: ${{ github.ref == 'refs/heads/develop' }}
         run: |
+          git add static/web
           git pull --rebase --autostash
 
         # Only commit built web project files on develop.
