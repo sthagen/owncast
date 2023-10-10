@@ -3,7 +3,7 @@ module github.com/owncast/owncast
 go 1.20
 
 require (
-	github.com/aws/aws-sdk-go v1.45.14
+	github.com/aws/aws-sdk-go v1.45.24
 	github.com/go-fed/activity v1.0.1-0.20210803212804-d866ba75dd0f
 	github.com/go-fed/httpsig v1.1.0
 	github.com/go-ole/go-ole v1.2.6 // indirect
@@ -19,7 +19,7 @@ require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/teris-io/shortid v0.0.0-20160104014424-6c56cef5189c
 	github.com/yuin/goldmark v1.5.6
-	golang.org/x/mod v0.12.0
+	golang.org/x/mod v0.13.0
 	golang.org/x/time v0.3.0
 )
 
@@ -28,15 +28,15 @@ require (
 	github.com/lestrrat-go/strftime v1.0.4 // indirect
 	github.com/mvdan/xurls v1.1.0 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/tklauser/go-sysconf v0.3.11 // indirect
-	github.com/tklauser/numcpus v0.6.0 // indirect
+	github.com/tklauser/go-sysconf v0.3.12 // indirect
+	github.com/tklauser/numcpus v0.6.1 // indirect
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/net v0.16.0
 	golang.org/x/sys v0.13.0 // indirect
 )
 
-require github.com/prometheus/client_golang v1.16.0
+require github.com/prometheus/client_golang v1.17.0
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -46,19 +46,19 @@ require (
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
-	github.com/prometheus/client_model v0.3.0 // indirect
-	github.com/prometheus/common v0.42.0 // indirect
-	github.com/prometheus/procfs v0.10.1 // indirect
+	github.com/prometheus/client_model v0.4.1-0.20230718164431-9a2bf3000d16 // indirect
+	github.com/prometheus/common v0.44.0 // indirect
+	github.com/prometheus/procfs v0.11.1 // indirect
 	golang.org/x/text v0.13.0 // indirect
-	google.golang.org/protobuf v1.30.0 // indirect
+	google.golang.org/protobuf v1.31.0 // indirect
 )
 
 require (
 	github.com/nakabonne/tstorage v0.3.6
-	github.com/shirou/gopsutil/v3 v3.23.7
+	github.com/shirou/gopsutil/v3 v3.23.9
 )
 
-require github.com/SherClockHolmes/webpush-go v1.2.0
+require github.com/SherClockHolmes/webpush-go v1.3.0
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
