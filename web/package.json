@@ -26,7 +26,7 @@
 		"@uiw/codemirror-theme-bbedit": "4.21.20",
 		"@uiw/react-codemirror": "4.21.20",
 		"@xstate/react": "3.2.2",
-		"antd": "4.24.14",
+		"antd": "4.24.15",
 		"autoprefixer": "^10.4.14",
 		"chart.js": "^4.2.0",
 		"classnames": "2.3.2",
@@ -81,10 +81,10 @@
 		"@types/chart.js": "2.9.41",
 		"@types/classnames": "2.3.1",
 		"@types/jest": "^29.5.0",
-		"@types/markdown-it": "13.0.6",
-		"@types/node": "20.9.3",
-		"@types/prop-types": "15.7.10",
-		"@types/react": "18.2.37",
+		"@types/markdown-it": "13.0.7",
+		"@types/node": "20.9.4",
+		"@types/prop-types": "15.7.11",
+		"@types/react": "18.2.38",
 		"@types/react-linkify": "1.0.4",
 		"@types/sanitize-html": "^2.9.0",
 		"@types/ua-parser-js": "0.7.39",
@@ -128,6 +128,6 @@
 		"stylelint-config-standard": "^34.0.0",
 		"stylelint-config-standard-scss": "^11.0.0",
 		"ts-jest": "^29.1.0",
-		"typescript": "5.2.2"
+		"typescript": "5.3.2"
 	}
 }
