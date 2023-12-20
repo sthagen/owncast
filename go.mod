@@ -7,10 +7,10 @@ require (
 	github.com/go-fed/activity v1.0.1-0.20210803212804-d866ba75dd0f
 	github.com/go-fed/httpsig v1.1.0
 	github.com/go-ole/go-ole v1.2.6 // indirect
-	github.com/gorilla/websocket v1.5.0
+	github.com/gorilla/websocket v1.5.1
 	github.com/grafov/m3u8 v0.12.0
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
-	github.com/mattn/go-sqlite3 v1.14.17
+	github.com/mattn/go-sqlite3 v1.14.19
 	github.com/microcosm-cc/bluemonday v1.0.26
 	github.com/nareix/joy5 v0.0.0-20210317075623-2c912ca30590
 	github.com/oschwald/geoip2-golang v1.9.0
@@ -31,7 +31,7 @@ require (
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
 	github.com/tklauser/numcpus v0.6.1 // indirect
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
-	golang.org/x/crypto v0.17.0 // indirect
+	golang.org/x/crypto v0.15.0 // indirect
 	golang.org/x/net v0.18.0
 	golang.org/x/sys v0.15.0 // indirect
 )
@@ -55,7 +55,7 @@ require (
 
 require (
 	github.com/nakabonne/tstorage v0.3.6
-	github.com/shirou/gopsutil/v3 v3.23.10
+	github.com/shirou/gopsutil/v3 v3.23.11
 )
 
 require github.com/SherClockHolmes/webpush-go v1.3.0
@@ -75,7 +75,6 @@ require (
 	github.com/CAFxX/httpcompression v0.0.9
 	github.com/andybalholm/cascadia v1.3.2
 	github.com/mssola/user_agent v0.6.0
-	github.com/victorspringer/http-cache v0.0.0-20231006141456-6446fe59efba
 	github.com/yuin/goldmark-emoji v1.0.2
 	gopkg.in/evanphx/json-patch.v5 v5.7.0
 	mvdan.cc/xurls v1.1.0
