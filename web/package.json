@@ -14,7 +14,7 @@
 		"format": "prettier --write  **/*.{js,ts,jsx,tsx,css,md}"
 	},
 	"dependencies": {
-		"@ant-design/icons": "4.8.1",
+		"@ant-design/icons": "4.8.2",
 		"@codemirror/lang-css": "6.2.1",
 		"@codemirror/lang-html": "^6.4.2",
 		"@codemirror/lang-javascript": "^6.1.2",
@@ -84,7 +84,7 @@
 		"@types/markdown-it": "13.0.7",
 		"@types/node": "20.11.28",
 		"@types/prop-types": "15.7.11",
-		"@types/react": "18.2.65",
+		"@types/react": "18.2.67",
 		"@types/react-linkify": "1.0.4",
 		"@types/sanitize-html": "^2.9.0",
 		"@types/ua-parser-js": "0.7.39",
