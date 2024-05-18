@@ -36,7 +36,7 @@ require (
 	golang.org/x/sys v0.19.0 // indirect
 )
 
-require github.com/prometheus/client_golang v1.19.0
+require github.com/prometheus/client_golang v1.19.1
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -53,7 +53,7 @@ require (
 
 require (
 	github.com/nakabonne/tstorage v0.3.6
-	github.com/shirou/gopsutil/v3 v3.24.3
+	github.com/shirou/gopsutil/v3 v3.24.4
 )
 
 require github.com/SherClockHolmes/webpush-go v1.3.0
