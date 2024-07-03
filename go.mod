@@ -3,11 +3,11 @@ module github.com/owncast/owncast
 go 1.22
 
 require (
-	github.com/aws/aws-sdk-go v1.53.5
+	github.com/aws/aws-sdk-go v1.54.13
 	github.com/go-fed/activity v1.0.1-0.20210803212804-d866ba75dd0f
 	github.com/go-fed/httpsig v1.1.0
 	github.com/go-ole/go-ole v1.2.6 // indirect
-	github.com/gorilla/websocket v1.5.1
+	github.com/gorilla/websocket v1.5.3
 	github.com/grafov/m3u8 v0.12.0
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/mattn/go-sqlite3 v1.14.22
@@ -18,7 +18,7 @@ require (
 	github.com/schollz/sqlite3dump v1.3.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/teris-io/shortid v0.0.0-20220617161101-71ec9f2aa569
-	github.com/yuin/goldmark v1.7.1
+	github.com/yuin/goldmark v1.7.4
 	golang.org/x/mod v0.17.0
 	golang.org/x/time v0.5.0
 )
@@ -53,7 +53,7 @@ require (
 
 require (
 	github.com/nakabonne/tstorage v0.3.6
-	github.com/shirou/gopsutil/v3 v3.24.4
+	github.com/shirou/gopsutil/v3 v3.24.5
 )
 
 require github.com/SherClockHolmes/webpush-go v1.3.0
@@ -87,6 +87,7 @@ require (
 	github.com/yuin/goldmark-emoji v1.0.2
 	gopkg.in/evanphx/json-patch.v5 v5.9.0
 	mvdan.cc/xurls v1.1.0
+	mvdan.cc/xurls/v2 v2.5.0
 )
 
 replace github.com/go-fed/activity => github.com/owncast/activity v1.0.1-0.20211229051252-7821289d4026
