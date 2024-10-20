@@ -1,4 +1,4 @@
-import { Canvas, Meta, Story, Typeset, Source } from '@storybook/addon-docs';
+import { Canvas, Meta, Story, Typeset, Source } from '@storybook/blocks';
 
 <Meta
   title="owncast/Styles/Typography"
@@ -63,14 +63,16 @@ export const bodyFont = {
 
 ## Usage
 
-<Canvas
-  columns={2}
-  withSource="open"
-  withToolbar
-  style={{ fontFamily: 'var(--theme-text-body-font-family)' }}
->
-  {getComputedStyle(document.documentElement).getPropertyValue('--theme-text-body-font-family')}
-</Canvas>
+{getComputedStyle(document.documentElement).getPropertyValue('--theme-text-body-font-family')}
+
+<Source
+  language="javascript"
+  dark
+  format={true}
+  code={`
+     getComputedStyle(document.documentElement).getPropertyValue('--theme-text-body-font-family')
+  `}
+/>
 
 <Source
   language="css"
@@ -128,13 +130,16 @@ export const displayFont = {
 
 ## Usage
 
-<Canvas
-  columns={2}
-  withSource="open"
-  withToolbarstyle={{ fontFamily: 'var(--theme-text-display-font-family)' }}
->
-  {getComputedStyle(document.documentElement).getPropertyValue('--theme-text-display-font-family')}
-</Canvas>
+{getComputedStyle(document.documentElement).getPropertyValue('--theme-text-display-font-family')}
+
+<Source
+  language="javascript"
+  dark
+  format={true}
+  code={`
+     getComputedStyle(document.documentElement).getPropertyValue('--theme-text-display-font-family')
+  `}
+/>
 
 <Source
   language="css"
