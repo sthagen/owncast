@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"bytes"
+	"crypto/md5" // nolint:gosec
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -128,7 +129,7 @@ type MetadataPage struct {
 // to give to Opengraph clients and web scrapers (bots, web crawlers, etc).
 func handleScraperMetadataPage(w http.ResponseWriter, r *http.Request) {
 	cacheKey := "bot-scraper-html"
-	cacheHtmlExpiration := time.Duration(10) * time.Second
+	cacheHtmlExpiration := time.Duration(60) * time.Second
 	c := gc.GetOrCreateCache(cacheKey, cacheHtmlExpiration)
 
 	cachedHtml := c.GetValueForKey(cacheKey)
@@ -199,7 +200,7 @@ func handleScraperMetadataPage(w http.ResponseWriter, r *http.Request) {
 
 	// Set a cache header
 	middleware.SetCachingHeaders(w, r)
-
+	w.Header().Set("ETag", fmt.Sprintf("%x", md5.Sum(b.Bytes()))) // nolint:gosec
 	w.Header().Set("Content-Type", "text/html")
 	if _, err = w.Write(b.Bytes()); err != nil {
 		log.Errorln(err)
